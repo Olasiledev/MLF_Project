@@ -1,8 +1,10 @@
 #app.py
+import os
 from flask import Flask, request, jsonify
 import numpy as np
-from tensorflow.keras.models import load_model
 import joblib
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import load_model
 
 app = Flask(__name__)
 
@@ -11,16 +13,13 @@ scaler = joblib.load("models/scaler.pkl")
 
 @app.route("/predict", methods=["POST"])
 def predict_stock_price():
-    """
-    Predict the stock price based on input sequences.
-    """
+  
     try:
-        # Extracting input sequence from the request
+        # Extracting input sequence
         input_sequence = request.json.get("sequence")
         if not input_sequence or len(input_sequence) != 60:
             return jsonify({"error": "Invalid input. Provide a sequence of 60 scaled values."}), 400
 
-        #input for model
         input_array = np.array(input_sequence).reshape(1, 60, 1)
 
         #prediction
@@ -32,5 +31,7 @@ def predict_stock_price():
         return jsonify({"error": str(e)}), 500
 
 
+# if __name__ == "__main__":
+#     app.run(debug=True)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))

@@ -56,7 +56,7 @@ run: python3 -m scripts.model_comparison
 run: python3 app.py
 
 ### local testing
-url: http://127.0.0.1:5000/predict
+url: http://127.0.0.1:8000/predict
 
 request body sample:
 {
