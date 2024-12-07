@@ -32,14 +32,14 @@ lr_rmse = np.sqrt(lr_mse)
 lr_r2 = r2_score(y_test, y_pred_lr)
 
 #comparison
-print(f"LSTM Model Evaluation Metrics:")
+print(f"LSTM Model Evaluation Metrics->")
 print(f"MAE: {lstm_mae:.4f}")
 print(f"MSE: {lstm_mse:.4f}")
 print(f"RMSE: {lstm_rmse:.4f}")
 print(f"R²: {lstm_r2:.4f}")
 print("\n")
 
-print(f"Linear Regression Model Evaluation Metrics:")
+print(f"Linear Regression Model Evaluation Metrics->")
 print(f"MAE: {lr_mae:.4f}")
 print(f"MSE: {lr_mse:.4f}")
 print(f"RMSE: {lr_rmse:.4f}")

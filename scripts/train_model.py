@@ -25,14 +25,13 @@ def train_lstm_model(data_path, model_save_path, scaler_save_path):
     model.fit(X_train, y_train, epochs=20, batch_size=32, validation_data=(X_test, y_test))
 
     model.save(model_save_path)
-    print(f"LSTM model saved to: {model_save_path}")
+    print(f"LSTM model saved to-> {model_save_path}")
 
 
 def train_linear_regression(data_path):
    
     X_train, X_test, y_train, y_test = load_and_preprocess_data(data_path)
 
-    # Prepare data for Linear Regression
     X = np.arange(len(y_train) + len(y_test)).reshape(-1, 1)
     y = np.concatenate([y_train, y_test])
     split_idx = len(y_train)

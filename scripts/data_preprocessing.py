@@ -12,11 +12,11 @@ def fetch_and_save_stock_data(ticker, start_date, end_date, file_path):
     try:
         print(f"Fetching data for {ticker} from {start_date} to {end_date}...")
         stock_data = yf.download(ticker, start=start_date, end=end_date)
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)  # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         stock_data.to_csv(file_path)
         print(f"Data for {ticker} saved to {file_path}")
     except Exception as e:
-        print(f"Error fetching data: {e}")
+        print(f"Error fetching data-> {e}")
         raise
 
 
