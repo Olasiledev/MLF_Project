@@ -7,10 +7,12 @@ from sklearn.metrics import mean_squared_error
 from scripts.data_preprocessing import load_and_preprocess_data, create_sequences
 import joblib
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
 
 
 def train_lstm_model(data_path, model_save_path, scaler_save_path=None):
-
+ 
     result = load_and_preprocess_data(data_path)
 
     if isinstance(result, tuple):
@@ -51,11 +53,16 @@ def train_lstm_model(data_path, model_save_path, scaler_save_path=None):
     model.fit(X_train, y_train, epochs=20, batch_size=32, validation_data=(X_test, y_test))
 
     model.save(model_save_path)
-    print(f"LSTM model saved to -> {model_save_path}")
 
     if scaler is not None and scaler_save_path:
-        joblib.dump(scaler, scaler_save_path)
-        print(f"Scaler saved to -> {scaler_save_path}")
+        if isinstance(scaler, MinMaxScaler):
+            joblib.dump(scaler, scaler_save_path)
+            print(f"Scaler saved to -> {scaler_save_path}")
+        else:
+            print(f"Invalid scaler detected during training: {scaler}")
+
+    print(f"LSTM model saved to -> {model_save_path}")
+
 
 
 def train_linear_regression(data_path):
@@ -80,7 +87,7 @@ def train_linear_regression(data_path):
         else:
             raise ValueError("NumPy array is empty.")
     else:
-        raise ValueError(f"Unexpected data type: {type(stock_data)}")
+        raise ValueError(f"Unexpected data type-> {type(stock_data)}")
 
     X = np.arange(len(y)).reshape(-1, 1)
 

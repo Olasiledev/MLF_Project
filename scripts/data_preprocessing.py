@@ -5,6 +5,8 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
+import joblib
+
 
 
 def fetch_and_save_stock_data(ticker, start_date, end_date, file_path):
@@ -29,7 +31,6 @@ def create_sequences(data, seq_length):
 
 
 def load_and_preprocess_data(file_path, seq_length=50, test_size=0.2):
-
     try:
         if not os.path.exists(file_path):
             print(f"{file_path} not found. Fetching and saving data...")
@@ -46,6 +47,11 @@ def load_and_preprocess_data(file_path, seq_length=50, test_size=0.2):
 
         scaler = MinMaxScaler()
         stock_data["Close_Scaled"] = scaler.fit_transform(stock_data["Close"].astype(float).values.reshape(-1, 1))
+
+        scaler_save_path = "models/scaler.pkl"
+        os.makedirs(os.path.dirname(scaler_save_path), exist_ok=True)
+        joblib.dump(scaler, scaler_save_path)
+        print(f"Scaler saved to {scaler_save_path}")
 
         # Creating sequences for LSTM
         X, y = create_sequences(stock_data["Close_Scaled"].values, seq_length)
