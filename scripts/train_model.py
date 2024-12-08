@@ -64,8 +64,7 @@ def train_lstm_model(data_path, model_save_path, scaler_save_path=None):
     print(f"LSTM model saved to -> {model_save_path}")
 
 
-
-def train_linear_regression(data_path):
+def train_linear_regression(data_path, model_save_path="models/linear_regression_model.pkl"):
     result = load_and_preprocess_data(data_path)
 
     print("Stock data type->", type(result))
@@ -101,7 +100,13 @@ def train_linear_regression(data_path):
     y_pred_lr = linear_model.predict(X_test)
     rmse_lr = np.sqrt(mean_squared_error(y_test, y_pred_lr))
     print(f"Linear Regression RMSE: {rmse_lr}")
+
+    # Save the trained Linear Regression model
+    joblib.dump(linear_model, model_save_path)
+    print(f"Linear Regression model saved to -> {model_save_path}")
+
     return linear_model, rmse_lr
+
 
 
 if __name__ == "__main__":
