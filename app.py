@@ -51,7 +51,7 @@ def predict_stock_price():
             prediction = lstm_model.predict(input_array.reshape(1, 60, 1))
         else:
             input_array = np.arange(len(input_array)).reshape(-1, 1)
-            prediction = lr_model.predict(input_array.reshape(1, -1))
+            prediction = lr_model.predict(input_array)
             prediction = scaler.inverse_transform(prediction.reshape(1, -1))
 
         predicted_price = float(prediction[0])
