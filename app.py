@@ -25,6 +25,7 @@ scaler = joblib.load(scaler_path)
 file_path = "data/AAPL.csv"
 X_train, X_test, y_train, y_test = load_and_preprocess_data(file_path)
 
+
 @app.route("/predict", methods=["POST"])
 def predict_stock_price():
     try:
@@ -49,8 +50,9 @@ def predict_stock_price():
         if best_model_name == "LSTM RMSE":
             prediction = lstm_model.predict(input_array.reshape(1, 60, 1))
         else:
+            input_array = np.arange(len(input_array)).reshape(-1, 1)
             prediction = lr_model.predict(input_array.reshape(1, -1))
-            prediction = scaler.inverse_transform(prediction.reshape(1, -1))  # Inverse scale if needed
+            prediction = scaler.inverse_transform(prediction.reshape(1, -1))
 
         predicted_price = float(prediction[0])
 

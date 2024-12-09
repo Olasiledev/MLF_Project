@@ -26,10 +26,14 @@ def evaluate_models(lstm_model, lr_model, scaler, input_array, y_true):
 
     # Evaluate LSTM model
     y_pred_lstm = lstm_model.predict(input_array_lstm)
+    if scaler:
+        y_pred_lstm = scaler.inverse_transform(y_pred_lstm)
+        y_true = scaler.inverse_transform([[y_true]])[0]
+
     rmse_lstm = np.sqrt(mean_squared_error([y_true], y_pred_lstm))
 
     # Reshape input array for Linear Regression (1D with 60 features)
-    input_array_lr = input_array.reshape(1, -1)
+    input_array_lr = np.arange(len(input_array)).reshape(-1, 1)
 
     # Scale the input if the scaler is used for Linear Regression
     if scaler:
@@ -37,9 +41,13 @@ def evaluate_models(lstm_model, lr_model, scaler, input_array, y_true):
 
     # Evaluate Linear Regression model
     y_pred_lr = lr_model.predict(input_array_lr)
+    if scaler:
+        y_pred_lr = scaler.inverse_transform(y_pred_lr.reshape(1, -1))[0]
+
     rmse_lr = np.sqrt(mean_squared_error([y_true], y_pred_lr))
 
     return {"LSTM RMSE": rmse_lstm, "Linear Regression RMSE": rmse_lr}
+
 
 
 #LSTM Model evaluation
