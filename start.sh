@@ -10,4 +10,4 @@ python3 -m scripts.train_model
 
 echo "Starting the application with Gunicorn..."
 # gunicorn app:app
-gunicorn app:app --bind 0.0.0.0:$PORT
+gunicorn app:app --bind 0.0.0.0:${PORT}
