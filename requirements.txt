@@ -9,3 +9,4 @@ flask
 joblib
 yfinance
 keras-tuner
+gunicorn
