@@ -9,6 +9,11 @@ python3 -m scripts.model_comparison
 python3 -m scripts.train_model
 
 
-echo "Starting the application with Gunicorn..."
+# echo "Starting the application with Gunicorn..."
 # gunicorn app:app
-gunicorn app:app --bind 0.0.0.0:$PORT
+# gunicorn app:app --bind 0.0.0.0:$PORT
+
+export PORT=${PORT:-8000}
+
+echo "Starting Flask application..."
+python3 app.py

@@ -30,30 +30,23 @@ cd StockPricePrediction
 
 ### 2. Set up VE 
 
-###Install dependencies 
-pip install -r requirements.txt
+### Install dependencies : pip install -r requirements.txt
 
+### To run all scripts and start flask app run : ./start.sh 
 
-### Data Preprocessing
-To preprocess data, split it into training and testing sets, and create the sequences for LSTM, 
-run: python3 -m scripts.data_preprocessing
+### To run scripts individually ------> 
 
+### run for data preprocessing : python3 -m scripts.data_preprocessing
+ 
+### run for Exploratory Data Analysis (EDA) : python3 -m scripts.eda
 
-### Exploratory Data Analysis (EDA)
-run: python3 -m scripts.eda
+### run for Hyperparameter Tuning: python3 -m scripts.hyperparameter_tuning
 
-###Hyperparameter Tuning
-run: python3 -m scripts.hyperparameter_tuning
+### run for Model Evaluation : python3 -m scripts.model_evaluation
 
-###Model Evaluation
-run: python3 -m scripts.model_evaluation
+### Model Comparison run: python3 -m scripts.model_comparison
 
-
-###Model Comparison
-run: python3 -m scripts.model_comparison
-
-#APP Deployment
-run: python3 app.py
+### FLASK APP Deployment run: python3 app.py
 
 ### local testing
 url: http://127.0.0.1:8000/predict
